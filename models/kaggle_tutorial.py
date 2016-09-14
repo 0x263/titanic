@@ -1,5 +1,7 @@
 import csv as csv 
+import matplotlib as plt
 import numpy as np
+import pandas as pd
 
 training_file_object = csv.reader(open('../data/train.csv')) 
 test_file_object = csv.reader(open('../data/test.csv')) 
