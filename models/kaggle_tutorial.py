@@ -40,6 +40,7 @@ the definitions do not support such relations.
 
 import csv as csv
 import numpy as np
+import pandas as pd
 
 training_file_object = csv.reader(open('../data/train.csv'))
 test_file_object = csv.reader(open('../data/test.csv'))
@@ -56,4 +57,17 @@ number_passengers = np.size(training_data[0::, 1].astype(np.float))
 number_survived = np.sum(training_data[0::, 1].astype(np.float))
 proportion_survivors = number_survived / number_passengers
 
-# can's new edit
+df = pd.read_csv("../data/train.csv")
+
+# Can's Code
+
+males = df[df.Sex == "male"]
+maleSurvivalRate = len(males[males.Survived == 1])/len(males)
+
+females = df[df.Sex == "female"]
+femaleSurvivalRate = len(females[females.Survived == 1])/len(females)
+
+# Fill the null ages for a better children survival rate data
+
+children = df[df.Age <= 16]
+childrenSurvivalRate = len(children[children.Survived == 1])/len(children)
