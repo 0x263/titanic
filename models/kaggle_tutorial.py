@@ -58,4 +58,21 @@ number_passengers = np.size(training_data[0::, 1].astype(np.float))
 number_survived = np.sum(training_data[0::, 1].astype(np.float))
 proportion_survivors = number_survived / number_passengers
 
-# Dhruv file test
+df = pd.read_csv("../data/train.csv", header=0)
+
+# Map Gender to 1 (male) or 0 (female)
+df['Gender'] = df['Sex'].map({'female': 0, 'male': 1}).astype(int)
+
+median_ages = np.zeros((2, 3))
+
+df['AgeFill'] = df.Age
+
+for i in range(2):
+    for j in range(3):
+        median_ages[i, j] = df[(df['Gender'] == i) & (
+            df['Pclass'] == j + 1)]['Age'].dropna().median()
+
+for i in range(2):
+    for j in range(3):
+        df.loc[(df.Age.isnull()) & (df.Gender == i) & (
+            df.Pclass == j + 1), 'AgeFill'] = median_ages[i, j]
