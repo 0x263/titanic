@@ -76,3 +76,7 @@ for i in range(2):
     for j in range(3):
         df.loc[(df.Age.isnull()) & (df.Gender == i) & (
             df.Pclass == j + 1), 'AgeFill'] = median_ages[i, j]
+
+df['AgeIsNull'] = pd.isnull(df.Age).astype(int)
+df['FamilySize'] = df.Parch + df.SibSp
+df['Age*Class'] = df.AgeFill * df.Pclass
